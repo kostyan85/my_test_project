@@ -1,8 +1,0 @@
-ru/test/testAlfaBank/TestAlfaBankApplication.java
- ru.test.testAlfaBank.TestAlfaBankApplication
-ru/test/testAlfaBank/controller/CurrencyController.java
- ru.test.testAlfaBank.controller.CurrencyController
-ru/test/testAlfaBank/service/CurrencyService.java
- ru.test.testAlfaBank.service.CurrencyService
-ru/test/testAlfaBank/model/FeignApi.java
- ru.test.testAlfaBank.model.FeignApi
