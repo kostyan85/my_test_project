@@ -1,0 +1,32 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.1'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+}
+
+group = 'ru.test'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'junit:junit:4.12'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testCompile "com.github.tomakehurst:wiremock-jre8:2.27.2"
+
+
+
+	compile group: 'io.github.openfeign', name: 'feign-okhttp', version: '11.0'
+
+	compile group: 'com.netflix.feign', name: 'feign-gson', version: '8.14.3'
+
+
+}
+
+test {
+	useJUnitPlatform()
+}
