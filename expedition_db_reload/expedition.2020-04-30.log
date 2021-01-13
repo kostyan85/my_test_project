@@ -1,0 +1,12 @@
+30.04.2020 11:51:34.474 [main] INFO   b.k.e.Slf4jLogbackExampleApp - Just a log message.
+30.04.2020 11:51:34.478 [main] DEBUG  b.k.e.Slf4jLogbackExampleApp - Message for debug level.
+30.04.2020 11:51:34.491 [main] ERROR  b.k.e.Slf4jLogbackExampleApp - Failed to read file /file/does/not/exist.
+java.nio.file.NoSuchFileException: \file\does\not\exist
+	at sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:79)
+	at sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:97)
+	at sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:102)
+	at sun.nio.fs.WindowsFileSystemProvider.newByteChannel(WindowsFileSystemProvider.java:230)
+	at java.nio.file.Files.newByteChannel(Files.java:361)
+	at java.nio.file.Files.newByteChannel(Files.java:407)
+	at java.nio.file.Files.readAllBytes(Files.java:3152)
+	at by.kostyan_85.expedition_db.Slf4jLogbackExampleApp.main(Slf4jLogbackExampleApp.java:23)

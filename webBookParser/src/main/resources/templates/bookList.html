@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8">
+<head>
+	<title>bookList</title>
+	<header></header>
+</head>
+<body>
+
+	<ul th:each="book:${bookList}">
+
+<!--/*<li th:text="${book}"></li>*/-->
+		<li>
+			<p><b>id:</b> <span th:text="${book.id}"></span></p>
+
+			<p><b>name book:</b> <span th:text="${book.bookName}"></span></p>
+			<p><b>autor name:</b> <span th:text="${book.autor}"></span></p>
+
+			<form action="/download" method="get">
+			<input style="display: none" type="text" name="bookUrl" th:value="${book.bookUrl}">
+				<p><b>book URL:</b> <span  th:text="${book.bookUrl}"></span></p>
+				<p>
+				<input type="submit" name="" value="Download">
+			</p>
+			</form>
+		</li>
+	</ul>
+</body>
+</html>

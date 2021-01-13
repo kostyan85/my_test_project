@@ -1,0 +1,45 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:beans="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--<bean id="carrier" class="by.kostyan_85.expedition_db.carrier.Carrier"/>-->
+    <!--&lt;!&ndash;<context:component-scan base-package="java"/>&ndash;&gt;-->
+
+    <bean id="carrierService" class="by.kostyan_85.expedition_db.carrier.CarrierService" >
+        <constructor-arg ref="carrierDao"/>
+    </bean>
+
+    <bean id="carrierDao" class="by.kostyan_85.expedition_db.carrier.CarrierDaoImpl"/>
+
+    <bean id="frameCarriers" class="by.kostyan_85.expedition_db.carrier.FrameCarriers">
+        <constructor-arg ref="carrierService"/>
+        <constructor-arg ref="tableCarriers"/>
+    </bean>
+
+    <bean id="tableCarriers" class="by.kostyan_85.expedition_db.carrier.CarrierTableModel">
+        <constructor-arg ref="carrierService"/>
+    </bean>
+
+    <bean id="customerService" class="by.kostyan_85.expedition_db.customer.CustomerService">
+        <constructor-arg ref="customerDao"/>
+    </bean>
+
+    <bean id="customerDao" class="by.kostyan_85.expedition_db.customer.CustomerDaoImpl"/>
+
+    <bean id="frameCustomers" class="by.kostyan_85.expedition_db.customer.FrameCustomers">
+        <constructor-arg ref="customerService"/>
+        <constructor-arg ref="tableCustomers"/>
+    </bean>
+    <bean id="tableCustomers" class="by.kostyan_85.expedition_db.customer.CustomerTableModel">
+        <constructor-arg ref="customerService"/>
+     </bean>
+    <bean id="frameTitle" class="by.kostyan_85.expedition_db.swing.FrameTitle">
+        <constructor-arg ref="frameCarriers"/>
+        <constructor-arg ref="frameCustomers"/>
+    </bean>
+</beans>
