@@ -15,11 +15,7 @@ import java.util.Optional;
 public class UsersService {
 
 
-//    private RestTemplate restTemplate = new RestTemplate();
 //
-//    String fooResourceUrl
-//            = "https://backorder.ru/json/?order=desc&expired=1&by=hotness&page=1&items=50";
-//    ResponseEntity<String> response= restTemplate.getForEntity(fooResourceUrl + "/1", String.class);
 
     @Autowired
   private   MessagesService messagesService;
