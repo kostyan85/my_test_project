@@ -15,15 +15,15 @@ import java.awt.*;
  */
 // TODO move logic into abstract parent
 public class FrameCarriers extends AbstractTableManager<Carrier> {
-//    private CarrierService service;
+    private CarrierService service;
     private CarrierFacade facade;
     // TODO think about JFrame decorator with table inside
     private JTable carrierTable;
     private JFrame frame;
 
-    public FrameCarriers(CarrierFacade facade,CarrierService service, CarrierTableModel carrierModel) {
+    public FrameCarriers(/*CarrierFacade facade,*/CarrierService service, CarrierTableModel carrierModel) {
         this.facade = facade;
-//        this.service = service;
+        this.service = service;
         this.carrierTable = createTable(carrierModel);
         this.frame = createFrame("Перевозчики");
     }
@@ -75,19 +75,19 @@ public class FrameCarriers extends AbstractTableManager<Carrier> {
 
     private JButton createAddButton() {
         JButton addButton = new JButton("Добавить");
-        addButton.addActionListener(new AddCarrierDialogListener(frame, facade));
+        addButton.addActionListener(new AddCarrierDialogListener(frame, service));
         return addButton;
     }
 
     private JButton createEditButton() {
         JButton editButton = new JButton("Редактировать");
-        editButton.addActionListener(new EditCarrierDialogListener(facade, frame, carrierTable));
+        editButton.addActionListener(new EditCarrierDialogListener(service, frame, carrierTable));
         return editButton;
     }
 
     private JButton createRemoveButton() {
         JButton removeButton = new JButton("Удалить");
-        removeButton.addActionListener(new RemoveCarrierDialogListener(facade, carrierTable));
+        removeButton.addActionListener(new RemoveCarrierDialogListener(service, carrierTable));
         return removeButton;
     }
 
