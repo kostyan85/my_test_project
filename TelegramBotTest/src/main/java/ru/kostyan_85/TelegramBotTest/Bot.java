@@ -10,6 +10,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import ru.kostyan_85.TelegramBotTest.Services.DailyDomainsService;
 import ru.kostyan_85.TelegramBotTest.Services.GeneralService;
 import ru.kostyan_85.TelegramBotTest.Services.UsersService;
 
@@ -18,7 +19,8 @@ public class Bot extends TelegramLongPollingBot {
 
     @Autowired
     GeneralService generalService;
-
+@Autowired
+    DailyDomainsService dailyDomainsService;
 
     @Autowired
     private UsersService usersService;
@@ -75,8 +77,8 @@ public class Bot extends TelegramLongPollingBot {
         try {
             execute(new SendMessage().setChatId(update.getMessage().getChatId())
                     .setText(getOutputMessage()));
-        generalService.saveUsersAndMessages(update);
-
+//        generalService.saveUsersAndMessages(update);
+dailyDomainsService.saveDailyDomains();
             System.out.println();
 
         } catch (TelegramApiException e) {

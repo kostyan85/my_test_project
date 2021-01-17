@@ -1,38 +1,22 @@
 package ru.kostyan_85.TelegramBotTest.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONPropertyIgnore;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.*;
-import java.lang.reflect.Type;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-//@Entity
+@Entity
 
 public class Daily_domains {
 
-//   static List<Daily_domains> domArr = new ArrayList<>();
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String domainname;
-
     private int hotness;
     private int price;
     private int x_value;
@@ -165,76 +149,76 @@ public class Daily_domains {
         this.block = block;
     }
 
-    static String url = "https://backorder.ru/json/?order=desc&expired=1&by=hotness&page=1&items=50";
-
-    private static String readAll(Reader rd) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        int cp;
-        while ((cp = rd.read()) != -1) {
-            sb.append((char) cp);
-        }
-        return sb.toString();
-    }
-
-    public static JSONArray readJsonFromUrl(String url) throws IOException, JSONException {
-        InputStream is = new URL(url).openStream();
-        try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            String jsonText = readAll(rd);
-            JSONArray json = new JSONArray(jsonText);
-            return json;
-        } finally {
-            is.close();
-        }
-
-    }
-
-    public static List<Daily_domains> jsonArrayToJsonObject() throws IOException {
-        List<Daily_domains> domArr = new ArrayList<>();
-
-
-        JSONArray array = readJsonFromUrl(url);
-
-        for(int n = 0; n < array.length(); n++)
-        {
-            Daily_domains daily_domains  = new Daily_domains();
-            JSONObject object = array.getJSONObject(n);
-
-                daily_domains.setDomainname(object.getString("domainname"));
-                daily_domains.setHotness(object.getInt("hotness"));
-                daily_domains.setPrice(object.getInt("price"));
-
-            daily_domains.setYandex_tic(object.optString("yandex_tic"));
-                daily_domains.setLinks(object.getInt("links"));
-                daily_domains.setRegistrar(object.getString("registrar"));
-                daily_domains.setOld(object.getInt("old"));
-                daily_domains.setDelete_date(object.getString("delete_date"));
-                daily_domains.setRkn(object.getBoolean("rkn"));
-                daily_domains.setJudicial(object.getBoolean("judicial"));
-                daily_domains.setBlock(object.getBoolean("block"));
-
-                domArr.add(daily_domains);
-            System.out.println(n);
-        }
-
-return domArr;
+//    static String url = "https://backorder.ru/json/?order=desc&expired=1&by=hotness&page=1&items=50";
 //
-    }
+//    private static String readAll(Reader rd) throws IOException {
+//        StringBuilder sb = new StringBuilder();
+//        int cp;
+//        while ((cp = rd.read()) != -1) {
+//            sb.append((char) cp);
+//        }
+//        return sb.toString();
+//    }
+//
+//    public static JSONArray readJsonFromUrl(String url) throws IOException, JSONException {
+//        InputStream is = new URL(url).openStream();
+//        try {
+//            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+//            String jsonText = readAll(rd);
+//            JSONArray json = new JSONArray(jsonText);
+//            return json;
+//        } finally {
+//            is.close();
+//        }
+//
+//    }
+//
+//    public static List<Daily_domains> jsonArrayToJsonObject() throws IOException {
+//        List<Daily_domains> domArr = new ArrayList<>();
+//
+//
+//        JSONArray array = readJsonFromUrl(url);
+//
+//        for(int n = 0; n < array.length(); n++)
+//        {
+//            Daily_domains daily_domains  = new Daily_domains();
+//            JSONObject object = array.getJSONObject(n);
+//
+//                daily_domains.setDomainname(object.getString("domainname"));
+//                daily_domains.setHotness(object.getInt("hotness"));
+//                daily_domains.setPrice(object.getInt("price"));
+//
+//            daily_domains.setYandex_tic(object.optString("yandex_tic"));
+//                daily_domains.setLinks(object.getInt("links"));
+//                daily_domains.setRegistrar(object.getString("registrar"));
+//                daily_domains.setOld(object.getInt("old"));
+//                daily_domains.setDelete_date(object.getString("delete_date"));
+//                daily_domains.setRkn(object.getBoolean("rkn"));
+//                daily_domains.setJudicial(object.getBoolean("judicial"));
+//                daily_domains.setBlock(object.getBoolean("block"));
+//
+//                domArr.add(daily_domains);
+//            System.out.println(n);
+//        }
+//
+//return domArr;
+////
+//    }
     public static void main(String[] args) throws IOException, JSONException {
 //        getValuesForGivenKey("domainname");
 //       jsonArrayToJsonObject();
 
-   soutArray();
+//   soutArray();
     }
-    public static void soutArray() throws IOException {
-        List arr = jsonArrayToJsonObject();
-        int count = 0;
-        for (int i = 0; i < arr.size(); i++) {
-            System.out.println(arr.get(i));
-            count++;
-        }
-        System.out.println(count);
-    }
+//    public static void soutArray() throws IOException {
+//        List arr =  jsonArrayToJsonObject();
+//        int count = 0;
+//        for (int i = 0; i < arr.size(); i++) {
+//            System.out.println(arr.get(i));
+//            count++;
+//        }
+//        System.out.println(count);
+//    }
     @Override
     public String toString() {
         return "Daily_domains{" +

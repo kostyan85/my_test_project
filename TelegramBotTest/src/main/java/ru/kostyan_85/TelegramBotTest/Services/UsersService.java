@@ -22,8 +22,7 @@ public class UsersService {
     @Autowired
     private UsersRepository repository;
 
-    @Autowired
-    private Bot bot;
+
 
     /**
      * получение имени пользователя
@@ -36,25 +35,6 @@ public class UsersService {
         return sender.getFirstName();
     }
 
-    /**
-     * получение входящего сообщения
-     *
-     * @param update
-     * @return текст сообщения
-     */
-    public String getInputMessage(Update update) {
-        Message message = update.getMessage();
-        return message.getText();
-    }
-
-    /**
-     * получение исходящего сообщения
-     *
-     * @return сообщение
-     */
-    public String getOutputMessage() {
-        return bot.getOutputMessage();
-    }
 
     public long getUserId(Update update) {
         User sender = update.getMessage().getFrom();
@@ -65,7 +45,7 @@ public class UsersService {
         Users users = new Users();
         users.setUserTelegramId(Long.valueOf(user.getId()));
         users.setUserName(user.getFirstName() != null ? user.getFirstName() : "");
-        users.setLastMessageAt(getInputMessage(update));
+        users.setLastMessageAt(messagesService.getInputMessage(update));
         return users;
     }
 
@@ -82,11 +62,10 @@ public class UsersService {
     }
 
     public void updateUserToBase(Update update) {
-
         Optional<Users> userById = repository.findByUserTelegramId(getUserId(update));
         if (userById.isPresent()) {
             Users users = userById.get();
-            users.setLastMessageAt(getInputMessage(update));
+            users.setLastMessageAt(messagesService.getInputMessage(update));
             repository.save(users);
         }
     }
