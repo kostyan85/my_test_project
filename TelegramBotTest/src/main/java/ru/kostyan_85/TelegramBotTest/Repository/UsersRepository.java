@@ -19,7 +19,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     Boolean hasUserById(Long userTelegramId);
 
 
-
+//TODO разобраться с спринг дата или поменть на классический sql
     Optional<Users> findByUserTelegramId(Long userTelegramId);
 
 

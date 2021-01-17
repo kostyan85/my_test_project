@@ -5,24 +5,38 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONPropertyIgnore;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.Entity;
+import java.io.*;
 import java.lang.reflect.Type;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 //@Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Daily_domains {
 
+//   static List<Daily_domains> domArr = new ArrayList<>();
+
     private String domainname;
+
     private int hotness;
     private int price;
     private int x_value;
-    private int yandex_tic;
+    private String yandex_tic;
     private int links;
     private int visitors;
     private String registrar;
@@ -31,8 +45,10 @@ public class Daily_domains {
     private boolean rkn;
     private boolean judicial;
     private boolean block;
+    public Daily_domains() throws MalformedURLException {
+    }
 
-    @JsonProperty("domainname")
+
     public String getDomainname() {
         return domainname;
     }
@@ -41,7 +57,7 @@ public class Daily_domains {
         this.domainname = domainname;
     }
 
-    @JsonProperty("hotness")
+
     public int getHotness() {
         return hotness;
     }
@@ -50,7 +66,7 @@ public class Daily_domains {
         this.hotness = hotness;
     }
 
-    @JsonProperty("price")
+
     public int getPrice() {
         return price;
     }
@@ -59,7 +75,7 @@ public class Daily_domains {
         this.price = price;
     }
 
-    @JsonProperty("x_value")
+
     public int getX_value() {
         return x_value;
     }
@@ -68,16 +84,16 @@ public class Daily_domains {
         this.x_value = x_value;
     }
 
-    @JsonProperty("yandex_tic")
-    public int getYandex_tic() {
+
+    public String getYandex_tic() {
         return yandex_tic;
     }
 
-    public void setYandex_tic(int yandex_tic) {
+    public void setYandex_tic(String yandex_tic) {
         this.yandex_tic = yandex_tic;
     }
 
-    @JsonProperty("links")
+
     public int getLinks() {
         return links;
     }
@@ -86,7 +102,7 @@ public class Daily_domains {
         this.links = links;
     }
 
-    @JsonProperty("visitors")
+
     public int getVisitors() {
         return visitors;
     }
@@ -95,7 +111,7 @@ public class Daily_domains {
         this.visitors = visitors;
     }
 
-    @JsonProperty("registrar")
+
     public String getRegistrar() {
         return registrar;
     }
@@ -104,7 +120,7 @@ public class Daily_domains {
         this.registrar = registrar;
     }
 
-    @JsonProperty("old")
+
     public int getOld() {
         return old;
     }
@@ -113,7 +129,7 @@ public class Daily_domains {
         this.old = old;
     }
 
-    @JsonProperty("delete_date")
+
     public String getDelete_date() {
         return delete_date;
     }
@@ -122,7 +138,7 @@ public class Daily_domains {
         this.delete_date = delete_date;
     }
 
-    @JsonProperty("rkn")
+
     public boolean isRkn() {
         return rkn;
     }
@@ -131,7 +147,7 @@ public class Daily_domains {
         this.rkn = rkn;
     }
 
-    @JsonProperty("judicial")
+
     public boolean isJudicial() {
         return judicial;
     }
@@ -140,7 +156,7 @@ public class Daily_domains {
         this.judicial = judicial;
     }
 
-    @JsonProperty("block")
+
     public boolean isBlock() {
         return block;
     }
@@ -150,41 +166,91 @@ public class Daily_domains {
     }
 
     static String url = "https://backorder.ru/json/?order=desc&expired=1&by=hotness&page=1&items=50";
-//    JSONObject obj = new JSONObject(url);
-//    JSONArray arr = obj.getJSONArray("");
-//    String json =
 
-    public static void main(String[] args) throws JsonProcessingException {
+    private static String readAll(Reader rd) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        int cp;
+        while ((cp = rd.read()) != -1) {
+            sb.append((char) cp);
+        }
+        return sb.toString();
+    }
 
-//        ObjectMapper mapper = new ObjectMapper();
-//        ArrayList<Daily_domains> res = mapper.readValue(url, new TypeReference<ArrayList<Daily_domains>>() {
-//            @Override
-//            public Type getType() {
-//
-//                return super.getType();
-//            }
-//        });
-//        for (Daily_domains d : res) {
-//            System.out.println(d);
-//        }
-        RestTemplate restTemplate = new RestTemplate();
-        Daily_domains daily_domains = restTemplate.getForObject("https://backorder.ru/json/?order=desc&expired=1&by=hotness&page=1&items=50",Daily_domains.class);
-        System.out.println(daily_domains.getDomainname());
-//        System.out.println(daily_domains.arr);
+    public static JSONArray readJsonFromUrl(String url) throws IOException, JSONException {
+        InputStream is = new URL(url).openStream();
+        try {
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            String jsonText = readAll(rd);
+            JSONArray json = new JSONArray(jsonText);
+            return json;
+        } finally {
+            is.close();
+        }
 
     }
 
+    public static List<Daily_domains> jsonArrayToJsonObject() throws IOException {
+        List<Daily_domains> domArr = new ArrayList<>();
 
-//    private RestTemplate restTemplate = new RestTemplate();
+
+        JSONArray array = readJsonFromUrl(url);
+
+        for(int n = 0; n < array.length(); n++)
+        {
+            Daily_domains daily_domains  = new Daily_domains();
+            JSONObject object = array.getJSONObject(n);
+
+                daily_domains.setDomainname(object.getString("domainname"));
+                daily_domains.setHotness(object.getInt("hotness"));
+                daily_domains.setPrice(object.getInt("price"));
+
+            daily_domains.setYandex_tic(object.optString("yandex_tic"));
+                daily_domains.setLinks(object.getInt("links"));
+                daily_domains.setRegistrar(object.getString("registrar"));
+                daily_domains.setOld(object.getInt("old"));
+                daily_domains.setDelete_date(object.getString("delete_date"));
+                daily_domains.setRkn(object.getBoolean("rkn"));
+                daily_domains.setJudicial(object.getBoolean("judicial"));
+                daily_domains.setBlock(object.getBoolean("block"));
+
+                domArr.add(daily_domains);
+            System.out.println(n);
+        }
+
+return domArr;
 //
-//    Daily_domains daily_domain = restTemplate.getForObject(url + "/1",Daily_domains.class);
-//
-//    public Daily_domains getDaily_domain() {
-//        return daily_domain;
-//    }
+    }
+    public static void main(String[] args) throws IOException, JSONException {
+//        getValuesForGivenKey("domainname");
+//       jsonArrayToJsonObject();
+
+   soutArray();
+    }
+    public static void soutArray() throws IOException {
+        List arr = jsonArrayToJsonObject();
+        int count = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            System.out.println(arr.get(i));
+            count++;
+        }
+        System.out.println(count);
+    }
+    @Override
+    public String toString() {
+        return "Daily_domains{" +
+                "domainname='" + domainname + '\'' +
+                ", hotness=" + hotness +
+                ", price=" + price +
+                ", x_value=" + x_value +
+                ", yandex_tic=" + yandex_tic +
+                ", links=" + links +
+                ", visitors=" + visitors +
+                ", registrar='" + registrar + '\'' +
+                ", old=" + old +
+                ", delete_date='" + delete_date + '\'' +
+                ", rkn=" + rkn +
+                ", judicial=" + judicial +
+                ", block=" + block +
+                '}';
+    }
 }
-//
-//    String fooResourceUrl
-//            = "https://backorder.ru/json/?order=desc&expired=1&by=hotness&page=1&items=50";
-//    ResponseEntity<String> response= restTemplate.getForEntity(fooResourceUrl + "/1", String.class);
-//}

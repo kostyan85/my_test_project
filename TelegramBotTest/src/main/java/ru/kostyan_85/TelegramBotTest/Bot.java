@@ -76,8 +76,7 @@ public class Bot extends TelegramLongPollingBot {
             execute(new SendMessage().setChatId(update.getMessage().getChatId())
                     .setText(getOutputMessage()));
         generalService.saveUsersAndMessages(update);
-            usersService.saveUserToBase(update.getMessage().getFrom(), update);
-//            usersService.updateUserToBase(update.getMessage().getFrom(), update);
+
             System.out.println();
 
         } catch (TelegramApiException e) {

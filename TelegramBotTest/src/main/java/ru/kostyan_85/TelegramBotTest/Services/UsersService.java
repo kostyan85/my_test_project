@@ -18,7 +18,7 @@ public class UsersService {
 //
 
     @Autowired
-  private   MessagesService messagesService;
+    private MessagesService messagesService;
     @Autowired
     private UsersRepository repository;
 
@@ -59,53 +59,35 @@ public class UsersService {
     public long getUserId(Update update) {
         User sender = update.getMessage().getFrom();
         return sender.getId();
-
     }
 
     public Users userToEntity(User user, Update update) {
         Users users = new Users();
         users.setUserTelegramId(Long.valueOf(user.getId()));
-//        user.getFirstName()!=null ? user.getFirstName() : ""
-        users.setUserName(user.getFirstName()!=null ? user.getFirstName() : "");
+        users.setUserName(user.getFirstName() != null ? user.getFirstName() : "");
         users.setLastMessageAt(getInputMessage(update));
         return users;
     }
 
-    public boolean isCheckExistsUser(User user, Update update){
-        if (repository.hasUserById(getUserId(update))){
+    public boolean isCheckExistsUser(User user, Update update) {
+        if (!repository.hasUserById(getUserId(update))) {
             saveUserToBase(user, update);
             return true;
-        }
-        else updateUserToBase(update);
+        } else updateUserToBase(update);
         return false;
     }
 
     public void saveUserToBase(User user, Update update) {
-
-//        if (!repository.hasUserById(getUserId(update))) {
-            repository.save(userToEntity(user, update));
-//            return true;
-//        }
-//        return false;
-
-    }
-//@Transactional
-    public void updateUserToBase( Update update) {
-
-    Optional<Users> userById = repository.findByUserTelegramId(getUserId(update));
-
-   if (userById.isPresent()){
-       Users users = userById.get();
-
-       users.setLastMessageAt(getInputMessage(update));
-       repository.save(users);
-   }
-
-
-}
-    public boolean saveOrUpdate(){
-
-        return false;
+        repository.save(userToEntity(user, update));
     }
 
+    public void updateUserToBase(Update update) {
+
+        Optional<Users> userById = repository.findByUserTelegramId(getUserId(update));
+        if (userById.isPresent()) {
+            Users users = userById.get();
+            users.setLastMessageAt(getInputMessage(update));
+            repository.save(users);
+        }
+    }
 }
