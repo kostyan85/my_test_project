@@ -12,6 +12,8 @@ import ru.kostyan_85.TelegramBotTest.Repository.DailyDomainsRepository;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +45,6 @@ public class DailyDomainsService {
         } finally {
             is.close();
         }
-
     }
 
     public static List<Daily_domains> jsonArrayToJsonObject(String url) throws IOException {
@@ -67,48 +68,39 @@ public class DailyDomainsService {
             daily_domains.setBlock(object.getBoolean("block"));
 
             domArr.add(daily_domains);
-//          System.out.println(n);
         }
         return domArr;
     }
-    public static void soutArray(String url) throws IOException {
-        List arr =  jsonArrayToJsonObject(url);
-        int count = 0;
-        for (int i = 0; i < arr.size(); i++) {
-            System.out.println(arr.get(i));
-            count++;
-        }
-        System.out.println(count);
-    }
-    public void saveDailyDomains()  {
-//        int count = 0;
+
+    public void saveToBaseDailyDomains()  {
+        domainsRepository.deleteAll();
         ArrayList<Daily_domains>arr = null;
         try {
-            System.out.println("старт");;
+//            System.out.println("старт");;
             arr = (ArrayList<Daily_domains>) jsonArrayToJsonObject(url);
             domainsRepository.saveAll(arr);
-//            for (int i = 0; i < arr.size(); i++) {
-//                domainsRepository.save(arr.get(i));
-////                System.out.println("count: "+ i + arr.get(i));
-//                count++;
-//            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("финиш");
-//        findAll();
-    }
-    public void findAll(){
-        List<Daily_domains> all = domainsRepository.findAll();
-        for (int i = 0; i <all.size() ; i++) {
-            System.out.println("count: " +i + all.get(i));
-        }
-    }
+//        System.out.println("финиш");
 
-    public static void main(String[] args) throws IOException {
-    DailyDomainsService daily_domainsService = new DailyDomainsService();
-//    daily_domainsService.saveDailyDomains();
-    soutArray(daily_domainsService.url);
     }
+    public int getCountDomainsInDB(){
+        saveToBaseDailyDomains();
+        List<Daily_domains> all = domainsRepository.findAll();
+      return  all.size();
+    }
+public  String formMessageForUser(){
+   String finalMessage ="\""+getCurrentDate()+". Собрано "+ getCountDomainsInDB()+" доменов\"";
+   return finalMessage;
+}
+public String getCurrentDate(){
+    LocalDate localDate = LocalDate.now();
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    return localDate.format(dtf);
+}
+
+
 
 }

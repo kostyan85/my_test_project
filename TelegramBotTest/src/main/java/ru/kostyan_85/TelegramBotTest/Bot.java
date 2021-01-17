@@ -8,15 +8,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.kostyan_85.TelegramBotTest.Services.DailyDomainsService;
 import ru.kostyan_85.TelegramBotTest.Services.GeneralService;
+import ru.kostyan_85.TelegramBotTest.Services.TaskTimerService;
 import ru.kostyan_85.TelegramBotTest.Services.UsersService;
 
 @Component
 public class Bot extends TelegramLongPollingBot {
-
+@Autowired
+    TaskTimerService taskTimerService;
     @Autowired
     GeneralService generalService;
 @Autowired
@@ -52,34 +55,27 @@ public class Bot extends TelegramLongPollingBot {
         return botToken;
     }
 
+    public void sendMsg(Message message, String text){
+        SendMessage sendMessage = new SendMessage();            //создали объект класса, то бишь проинициализировали отправленное сообщение
+        sendMessage.enableMarkdown(true);                            //включили возможность разметки
+        sendMessage.setChatId(message.getChatId().toString());      //определяем ID чата, чтобы знать на какой конкретно чат нужно отправить ответ
+        sendMessage.setReplyToMessageId(message.getMessageId());    //определяем ID сообщения, чтобы знать на какое ответить
+        sendMessage.setText(text);
+        s//установить сообщению текст, который отправили в метод
+        try {
+            sendMessage(sendMessage);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void onUpdateReceived(Update update) {
+taskTimerService.timerTask();
 
 
-//        update.getUpdateId();
-//        SendMessage sendMessage = new SendMessage().setChatId(update.getMessage().getChatId());
-
-//        if (update.getMessage().getText().equals("Hi")){
-//
-//            try {
-//                execute(sendMessage.setText("Привет привет"));
-//            } catch (TelegramApiException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//            User sender = update.getMessage().getFrom();
-//            name = sender.getFirstName();
-//        Message message = update.getMessage();
-//     String text =  message.getText();
-//        long id = sender.getId();
-//        System.out.println(id);
-//        System.out.println(text);
         try {
             execute(new SendMessage().setChatId(update.getMessage().getChatId())
                     .setText(getOutputMessage()));
-//        generalService.saveUsersAndMessages(update);
-dailyDomainsService.saveDailyDomains();
-            System.out.println();
 
         } catch (TelegramApiException e) {
             e.printStackTrace();
