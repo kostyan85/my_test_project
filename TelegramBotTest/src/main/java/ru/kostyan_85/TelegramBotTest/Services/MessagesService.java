@@ -44,7 +44,7 @@ public class MessagesService {
         return message.getText();
     }
 
-
+//TODO как правильно комментировать
     public Messages messagesToEntity(Update update) {
         Messages messagesEntity = new Messages();
         Optional<Users> byUserId = usersRepository.findByUserTelegramId(usersService.getUserId(update));
@@ -53,9 +53,10 @@ public class MessagesService {
         messagesEntity.setUsers(byUserId.get());
         return messagesEntity;
     }
-
+/**
+ * сохраняем сообщения в БД
+ * */
     public void saveMessagesToBase(Update update) {
         messagesRepository.save(messagesToEntity(update));
-        System.out.println();
     }
 }

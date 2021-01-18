@@ -26,6 +26,9 @@ public class DailyDomainsService {
 //    @Value("${dailyDomainsUrl}")
     private String url = "https://backorder.ru/json/?order=desc&expired=1&by=hotness&page=1&items=50";
 
+    /**
+     * преобразуем JSON в String
+     * */
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -34,7 +37,10 @@ public class DailyDomainsService {
         }
         return sb.toString();
     }
-
+/**
+ * считываем JSON по URL
+ * @return JSONArray
+ * */
     public static JSONArray readJsonFromUrl(String url) throws IOException, JSONException {
         InputStream is = new URL(url).openStream();
         try {
@@ -46,7 +52,10 @@ public class DailyDomainsService {
             is.close();
         }
     }
-
+/**
+ * преобразуем JSONArray в JSONObject и заполняем массив данными JSON
+ * @return массив с данными из JSON
+ * */
     public static List<Daily_domains> jsonArrayToJsonObject(String url) throws IOException {
         List<Daily_domains> domArr = new ArrayList<>();
         JSONArray array = readJsonFromUrl(url);
@@ -71,6 +80,9 @@ public class DailyDomainsService {
         }
         return domArr;
     }
+    /**
+     * сохраняем в БД domain полученные по URL
+     * */
 
     public void saveToBaseDailyDomains()  {
         domainsRepository.deleteAll();
@@ -86,15 +98,27 @@ public class DailyDomainsService {
 //        System.out.println("финиш");
 
     }
+    /**
+     * получаем количество domains
+     * @return количество domains(размер массива domains)
+     * */
     public int getCountDomainsInDB(){
         saveToBaseDailyDomains();
-        List<Daily_domains> all = domainsRepository.findAll();
-      return  all.size();
+        List<Daily_domains> allDomains = domainsRepository.findAll();
+      return  allDomains.size();
     }
+    /**получаем сообщение для ежедневной рассылки
+     * @return сообщение
+     * */
 public  String formMessageForUser(){
+    System.out.println("формируем сообщение");
    String finalMessage ="\""+getCurrentDate()+". Собрано "+ getCountDomainsInDB()+" доменов\"";
    return finalMessage;
 }
+
+/**получаем текущую дату
+ * @return отформатированная текущая дата
+ * */
 public String getCurrentDate(){
     LocalDate localDate = LocalDate.now();
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");

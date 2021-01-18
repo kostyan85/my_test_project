@@ -3,9 +3,8 @@ package ru.kostyan_85.TelegramBotTest.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.User;
 import ru.kostyan_85.TelegramBotTest.Bot;
-import ru.kostyan_85.TelegramBotTest.Entity.Messages;
+
 
 @Service
 public class GeneralService {
@@ -18,9 +17,13 @@ public class GeneralService {
 
     @Autowired
     Bot bot;
-    public void saveUsersAndMessages( Update update){
-        usersService.isCheckExistsUser(update.getMessage().getFrom(),update);
-//        usersService.saveUserToBase(update.getMessage().getFrom(),update);
+
+    /**
+     * сохраняем или обновляем пользователя и сохраняем сообщения в БД
+     */
+    public void saveUsersAndMessages(Update update) {
+        usersService.isCheckExistsUser(update.getMessage().getFrom(), update);
+
         messagesService.saveMessagesToBase(update);
 
     }
