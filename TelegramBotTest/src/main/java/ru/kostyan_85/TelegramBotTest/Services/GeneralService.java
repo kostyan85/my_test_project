@@ -23,7 +23,6 @@ public class GeneralService {
      */
     public void saveUsersAndMessages(Update update) {
         usersService.isCheckExistsUser(update.getMessage().getFrom(), update);
-
         messagesService.saveMessagesToBase(update);
 
     }

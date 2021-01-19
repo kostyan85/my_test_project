@@ -13,7 +13,6 @@ public class Messages {
    private String outMessage;
 
    @ManyToOne(cascade = CascadeType.MERGE,optional = false)
-//   @JoinColumn(name = "users_id",nullable = false)
    private Users users;
 
     public Messages() {

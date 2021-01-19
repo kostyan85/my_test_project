@@ -17,15 +17,11 @@ public class Users {
     @Column(name = "last_message_a")
     private String lastMessageAt;
 
-
-    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
-//    @JoinColumn(name = "users_id")
+    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private List<Messages> messages;
 
     public Users() {
     }
-
-
 
     public void setLastMessageAt(String lastMessageAt) {
         this.lastMessageAt = lastMessageAt;
@@ -34,8 +30,6 @@ public class Users {
     public String getLastMessageAt() {
         return lastMessageAt;
     }
-
-
 
     public Long getId() {
         return id;
@@ -52,8 +46,6 @@ public class Users {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
-
 
     public Long getUserTelegramId() {
         return userTelegramId;

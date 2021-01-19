@@ -1,15 +1,7 @@
 package ru.test.testAlfaBank.service;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Map;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,35 +10,6 @@ class CurrencyServiceTest {
     CurrencyService currencyService = new CurrencyService();
     WireMockServer wireMockServer = new WireMockServer(8080);
 
-
-//    @Before
-//    void beforeTests() {
-//        wireMockServer.start();
-//        configureFor("localhost", 8080);
-//    }
-
-//
-//        wireMockServer.start();
-//        configureFor("localhost", 8080);
-//        stubFor(get(urlEqualTo("/currentCourse")).willReturn(aResponse().withBody("{\n" +
-//                "  \"rates\": {\n" +
-//                "    \"USD\": 1.2,\n" +
-//                "    \"AFN\": 78.217564\n" +
-//                "  }\n" +
-//                "}")));
-//        configureFor("localhost", 8080);
-//        stubFor(get(urlEqualTo("/yesterdayCourse")).willReturn(aResponse().withBody("{\n" +
-//                "  \"rates\": {\n" +
-//                "    \"USD\": 1.5,\n" +
-//                "    \"AFN\": 78.217564\n" +
-//                "  }\n" +
-//                "}")));
-//    }
-
-//    @After
-//    void afterTests() {
-//        wireMockServer.stop();
-//    }
 
     @Test
     void compareCurrency() {
@@ -61,7 +24,6 @@ class CurrencyServiceTest {
 
     @Test
     void getCurrentCourse() {
-//        WireMockServer wireMockServer = new WireMockServer(8080);
         wireMockServer.start();
         configureFor("localhost", 8080);
         stubFor(get(urlEqualTo("/currentCourse")).willReturn(aResponse().withBody("{\n" +
@@ -78,7 +40,6 @@ class CurrencyServiceTest {
 
     @Test
     void getYesterdayCourse() {
-//        WireMockServer wireMockServer = new WireMockServer(8080);
         wireMockServer.start();
         configureFor("localhost", 8080);
         stubFor(get(urlEqualTo("/yesterdayCourse")).willReturn(aResponse().withBody("{\n" +

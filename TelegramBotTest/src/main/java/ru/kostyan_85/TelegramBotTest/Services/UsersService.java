@@ -18,7 +18,7 @@ public class UsersService {
     private MessagesService messagesService;
 
     @Autowired
-    private UsersRepository repository;
+    private UsersRepository userRepository;
 
 
     /**
@@ -33,7 +33,7 @@ public class UsersService {
     }
 
     public ArrayList<Users> getAllUserTelegramId() {
-        return repository.findAllByUserTelegramId();
+        return userRepository.findAllByUserTelegramId();
     }
 
     /**
@@ -52,7 +52,6 @@ public class UsersService {
     //TODO как правильно написать коммент?
     public Users userToEntity(User user, Update update) {
         Users users = new Users();
-
         users.setUserTelegramId(Long.valueOf(user.getId()));
         users.setUserName(user.getFirstName() != null ? user.getFirstName() : "");
         users.setLastMessageAt(messagesService.getInputMessage(update));
@@ -63,35 +62,29 @@ public class UsersService {
      * проверка наличия пользователя в БД
      */
 
-    public boolean isCheckExistsUser(User user, Update update) {
-        if (!repository.hasUserById(getUserId(update))) {
+    public void isCheckExistsUser(User user, Update update) {
+        if (!userRepository.hasUserById(getUserId(update))) {
             saveUserToBase(user, update);
-            return true;
         } else updateUserToBase(update);
-        return false;
     }
 
     /**
      * сохранение пользоателя в БД
      */
     public void saveUserToBase(User user, Update update) {
-        repository.save(userToEntity(user, update));
+        userRepository.save(userToEntity(user, update));
     }
 
     /**
      * обновление пользователя ели он уже существует в БД
      */
     public void updateUserToBase(Update update) {
-        Optional<Users> userById = repository.findByUserTelegramId(getUserId(update));
+        Optional<Users> userById = userRepository.findByUserTelegramId(getUserId(update));
         if (userById.isPresent()) {
             Users users = userById.get();
             users.setLastMessageAt(messagesService.getInputMessage(update));
-            repository.save(users);
+            userRepository.save(users);
         }
     }
 
-    public static void main(String[] args) {
-        UsersService service = new UsersService();
-        service.getAllUserTelegramId();
-    }
 }
