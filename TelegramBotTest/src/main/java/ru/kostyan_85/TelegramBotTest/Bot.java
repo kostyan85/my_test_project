@@ -3,6 +3,7 @@ package ru.kostyan_85.TelegramBotTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -61,8 +62,22 @@ public class Bot extends TelegramLongPollingBot {
     }
 
     /**
+     * создаем таймер для ежедневной рассылки
+     *
+     * @Scheduled(cron = "0 0 12 * * *") настройка на 12 часов каждого дня
+     */
+    @Scheduled(cron = "${settings.cron}")
+    public void timerTask() {
+        try {
+            System.out.println("старт таймер");
+            sendMsg(dailyDomainsService.formMessageForUser());
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * отправляем рассылку пользователям которые зарегестрированы в БД
-     * циклом проходим по массиву пользователей
      */
     public void sendMsg(/*Message message, */String text) throws TelegramApiException {
         System.out.println("старт sendMsg");

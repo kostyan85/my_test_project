@@ -4,6 +4,8 @@ package ru.kostyan_85.TelegramBotTest.Services;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,8 @@ public class DailyDomainsService {
 
     @Value("${dailyDomainsUrl}")
     private String url;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DailyDomainsService.class);
 
     /**
      * преобразуем JSON в String
@@ -79,7 +83,6 @@ public class DailyDomainsService {
             daily_domains.setRkn(object.getBoolean("rkn"));
             daily_domains.setJudicial(object.getBoolean("judicial"));
             daily_domains.setBlock(object.getBoolean("block"));
-
             domArr.add(daily_domains);
         }
         return domArr;
@@ -98,7 +101,7 @@ public class DailyDomainsService {
             domainsRepository.saveAll(arr);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("error saveUserToBase: {0} ", e);
         }
 //        System.out.println("финиш");
 
@@ -109,10 +112,17 @@ public class DailyDomainsService {
      *
      * @return количество domains(размер массива domains)
      */
+    //TODO как правильно сделать проверку
     public int getCountDomainsInDB() {
         saveToBaseDailyDomains();
-        List<Daily_domains> allDomains = domainsRepository.findAll();
-        return allDomains.size();
+        int allDomainsSize = 0;
+        if (domainsRepository.findAll() != null) {
+            List<Daily_domains> allDomains = domainsRepository.findAll();
+            allDomainsSize = allDomains.size();
+        } else {
+            LOGGER.error("error getCountDomainsInDB");
+        }
+        return allDomainsSize;
     }
 
     /**
@@ -120,7 +130,9 @@ public class DailyDomainsService {
      *
      * @return сообщение
      */
+    //TODO что можно логировать в этом методе
     public String formMessageForUser() {
+
         System.out.println("формируем сообщение");
         String finalMessage = "\"" + getCurrentDate() + ". Собрано " + getCountDomainsInDB() + " доменов\"";
         return finalMessage;
@@ -131,7 +143,9 @@ public class DailyDomainsService {
      *
      * @return отформатированная текущая дата
      */
+    //TODO что можно логировать в этом методе
     public String getCurrentDate() {
+
         LocalDate localDate = LocalDate.now();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return localDate.format(dtf);

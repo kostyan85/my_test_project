@@ -1,5 +1,8 @@
 package ru.kostyan_85.TelegramBotTest.Services;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -11,6 +14,7 @@ import ru.kostyan_85.TelegramBotTest.Repository.MessagesRepository;
 import ru.kostyan_85.TelegramBotTest.Repository.UsersRepository;
 
 import java.util.Optional;
+
 
 @Service
 public class MessagesService {
@@ -24,15 +28,23 @@ public class MessagesService {
     @Autowired
     Bot bot;
 
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MessagesService.class);
+
     /**
      * получение исходящего сообщения
      *
      * @return сообщение
      */
     public String getOutputMessage() {
-        return bot.getOutputMessage();
+        String msg = "";
+        if (bot.getOutputMessage() != null) {
+            msg = bot.getOutputMessage();
+        } else {
+            LOGGER.error("error getOutputMessage: сообщение не получено");
+        }
+        return msg;
     }
-
     /**
      * получение входящего сообщения
      *
@@ -40,23 +52,47 @@ public class MessagesService {
      * @return текст сообщения
      */
     public String getInputMessage(Update update) {
-        Message message = update.getMessage();
-        return message.getText();
+        String msg = "";
+        if (update.getMessage()!=null){
+            Message message = update.getMessage();
+            msg = message.getText();
+        } else {
+            LOGGER.error("error getInputMessage: сообщение не получено");
+        }
+        return msg;
     }
 
-//TODO как правильно комментировать
+
+    /**
+     * заполнение сущности Messages
+     */
     public Messages messagesToEntity(Update update) {
         Messages messagesEntity = new Messages();
+
         Optional<Users> byUserId = usersRepository.findByUserTelegramId(usersService.getUserId(update));
-        messagesEntity.setInMessage(getInputMessage(update));
-        messagesEntity.setOutMessage(getOutputMessage());
-        messagesEntity.setUsers(byUserId.get());
+        if (byUserId.isPresent()) {
+            if (getInputMessage(update) != null) {
+                messagesEntity.setInMessage(getInputMessage(update));
+                messagesEntity.setOutMessage(getOutputMessage());
+                messagesEntity.setUsers(byUserId.get());
+            } else {
+                LOGGER.error("error messagesToEntity: getInputMessage() is Null");
+            }
+        } else {
+            LOGGER.error("error messagesToEntity: в бд не найден пользователь с таким Id");
+        }
+
         return messagesEntity;
     }
-/**
- * сохраняем сообщения в БД
- * */
+
+    /**
+     * сохраняем сообщения в БД
+     */
     public void saveMessagesToBase(Update update) {
-        messagesRepository.save(messagesToEntity(update));
+        try {
+            messagesRepository.save(messagesToEntity(update));
+        } catch (Exception e) {
+            LOGGER.error("error saveMessagesToBase: {0} ", e);
+        }
     }
 }

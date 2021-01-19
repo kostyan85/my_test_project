@@ -17,33 +17,32 @@
     <properties>
         <java.version>11</java.version>
         <telegrambots-spring.version>0.22</telegrambots-spring.version>
+        <liquibase.version>3.6.2</liquibase.version>
+
     </properties>
 
     <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>org.liquibase</groupId>-->
+<!--            <artifactId>liquibase-core</artifactId>-->
+<!--            <version>${liquibase.version}</version>-->
+<!--        </dependency>-->
+
         <!-- https://mvnrepository.com/artifact/org.telegram/telegrambots-spring-boot-starter -->
         <dependency>
             <groupId>com.github.xabgesagtx</groupId>
             <artifactId>telegram-spring-boot-starter</artifactId>
             <version>${telegrambots-spring.version}</version>
-            <!--			<groupId>org.telegram</groupId>-->
-            <!--			<artifactId>telegrambots-spring-boot-starter</artifactId>-->
-            <!--			<version>5.0.0</version>-->
+
         </dependency>
-        <!-- https://mvnrepository.com/artifact/junit/junit -->
-        <!--		<dependency>-->
-        <!--			<groupId>junit</groupId>-->
-        <!--			<artifactId>junit</artifactId>-->
-        <!--			<version>4.13</version>-->
-        <!--			<scope>test</scope>-->
-        <!--		</dependency>-->
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
-        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-        <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-logging -->
         <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-            <version>2.3.2</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+            <version>2.4.2</version>
         </dependency>
+
+
 
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
@@ -84,11 +83,7 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -99,18 +94,20 @@
 
     </dependencies>
 
+
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
+<!--                    <excludes>-->
+<!--                        <exclude>-->
+<!--                            <groupId>org.projectlombok</groupId>-->
+<!--                            <artifactId>lombok</artifactId>-->
+<!--                        </exclude>-->
+<!--                    </excludes>-->
                 </configuration>
             </plugin>
             <plugin>
