@@ -1,4 +1,4 @@
-package ru.kostyan_85.TelegramBotTest.Services;
+package TelegramBot.Services;
 
 
 import org.json.JSONArray;
@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.kostyan_85.TelegramBotTest.Entity.Daily_domains;
-import ru.kostyan_85.TelegramBotTest.Repository.DailyDomainsRepository;
+import TelegramBot.Entity.Daily_domains;
+import TelegramBot.Repository.DailyDomainsRepository;
 
 import java.io.*;
 import java.net.URL;

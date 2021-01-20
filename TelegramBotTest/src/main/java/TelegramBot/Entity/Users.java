@@ -1,4 +1,4 @@
-package ru.kostyan_85.TelegramBotTest.Entity;
+package TelegramBot.Entity;
 
 import javax.persistence.*;
 import java.util.List;

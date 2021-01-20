@@ -1,4 +1,4 @@
-package ru.kostyan_85.TelegramBotTest.Services;
+package TelegramBot.Services;
 
 
 import org.slf4j.Logger;
@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.kostyan_85.TelegramBotTest.Bot;
-import ru.kostyan_85.TelegramBotTest.Entity.Messages;
-import ru.kostyan_85.TelegramBotTest.Entity.Users;
-import ru.kostyan_85.TelegramBotTest.Repository.MessagesRepository;
-import ru.kostyan_85.TelegramBotTest.Repository.UsersRepository;
+import TelegramBot.Bot;
+import TelegramBot.Entity.Messages;
+import TelegramBot.Entity.Users;
+import TelegramBot.Repository.MessagesRepository;
+import TelegramBot.Repository.UsersRepository;
 
 import java.util.Optional;
 

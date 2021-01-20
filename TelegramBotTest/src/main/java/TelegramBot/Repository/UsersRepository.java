@@ -1,8 +1,8 @@
-package ru.kostyan_85.TelegramBotTest.Repository;
+package TelegramBot.Repository;
 
 
 import org.springframework.data.jpa.repository.Query;
-import ru.kostyan_85.TelegramBotTest.Entity.Users;
+import TelegramBot.Entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.ArrayList;

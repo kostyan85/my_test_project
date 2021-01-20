@@ -1,5 +1,7 @@
-package ru.kostyan_85.TelegramBotTest;
+package TelegramBot;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -10,15 +12,16 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import ru.kostyan_85.TelegramBotTest.Services.DailyDomainsService;
-import ru.kostyan_85.TelegramBotTest.Services.GeneralService;
-import ru.kostyan_85.TelegramBotTest.Services.TaskTimerService;
-import ru.kostyan_85.TelegramBotTest.Services.UsersService;
+import TelegramBot.Services.DailyDomainsService;
+import TelegramBot.Services.GeneralService;
+import TelegramBot.Services.TaskTimerService;
+import TelegramBot.Services.UsersService;
 
 import java.util.ArrayList;
 
 @Component
 public class Bot extends TelegramLongPollingBot {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Bot.class);
     @Autowired
     TaskTimerService taskTimerService;
     @Autowired
@@ -61,20 +64,20 @@ public class Bot extends TelegramLongPollingBot {
         return botToken;
     }
 
-    /**
-     * создаем таймер для ежедневной рассылки
-     *
-     * @Scheduled(cron = "0 0 12 * * *") настройка на 12 часов каждого дня
-     */
-    @Scheduled(cron = "${settings.cron}")
-    public void timerTask() {
-        try {
-            System.out.println("старт таймер");
-            sendMsg(dailyDomainsService.formMessageForUser());
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
+//    /**
+//     * создаем таймер для ежедневной рассылки
+//     *
+//     * @Scheduled(cron = "0 0 12 * * *") настройка на 12 часов каждого дня
+//     */
+//    @Scheduled(cron = "${settings.cron}")
+//    public void timerTask() {
+//        try {
+//            System.out.println("старт таймер");
+//            sendMsg(dailyDomainsService.formMessageForUser());
+//        } catch (TelegramApiException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * отправляем рассылку пользователям которые зарегестрированы в БД
@@ -111,6 +114,7 @@ public class Bot extends TelegramLongPollingBot {
 //TODO для добавления новых пользователей
 
         try {
+            LOGGER.error("трям трям");
             execute(new SendMessage().setChatId(update.getMessage().getChatId())
                     .setText(getOutputMessage()));
             generalService.saveUsersAndMessages(update);

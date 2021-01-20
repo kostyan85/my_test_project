@@ -1,9 +1,9 @@
-package ru.kostyan_85.TelegramBotTest.Services;
+package TelegramBot.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.kostyan_85.TelegramBotTest.Bot;
+import TelegramBot.Bot;
 
 
 @Service

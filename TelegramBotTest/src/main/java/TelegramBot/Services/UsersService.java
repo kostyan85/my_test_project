@@ -1,16 +1,16 @@
-package ru.kostyan_85.TelegramBotTest.Services;
+package TelegramBot.Services;
 
+import TelegramBot.Entity.Users;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
-import ru.kostyan_85.TelegramBotTest.Entity.Users;
-import ru.kostyan_85.TelegramBotTest.Repository.UsersRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import TelegramBot.Repository.UsersRepository;
+
+import java.util.ArrayList;;
 import java.util.Optional;
 
 @Service
@@ -118,6 +118,10 @@ public class UsersService {
         } else {
             LOGGER.error("error updateUserToBase: пользователь не обновлен");
         }
+    }
+
+    public static void main(String[] args) {
+        LOGGER.error("тук тук");
     }
 
 }

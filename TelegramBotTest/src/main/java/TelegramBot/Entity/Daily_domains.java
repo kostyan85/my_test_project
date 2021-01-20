@@ -1,13 +1,9 @@
-package ru.kostyan_85.TelegramBotTest.Entity;
-
-import org.json.JSONException;
+package TelegramBot.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.io.*;
-import java.net.MalformedURLException;
 
 @Entity
 public class Daily_domains {
