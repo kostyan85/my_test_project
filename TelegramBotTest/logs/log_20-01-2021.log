@@ -1,1 +1,30 @@
 20-01-2021 11:42:00.257 [KostyanFirstTele_bot Telegram Executor] ERROR TelegramBot.Bot.onUpdateReceived - трям трям
+20-01-2021 16:26:06.376 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter.report - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+An attempt was made to call a method that does not exist. The attempt was made from the following location:
+
+    org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration$LiquibaseConfiguration.liquibase(LiquibaseAutoConfiguration.java:108)
+
+The following method did not exist:
+
+    'void liquibase.integration.spring.SpringLiquibase.setClearCheckSums(boolean)'
+
+The method's class, liquibase.integration.spring.SpringLiquibase, is available from the following locations:
+
+    jar:file:/C:/Users/Zver/.m2/repository/org/liquibase/liquibase-core/3.6.2/liquibase-core-3.6.2.jar!/liquibase/integration/spring/SpringLiquibase.class
+
+The class hierarchy was loaded from the following locations:
+
+    liquibase.integration.spring.SpringLiquibase: file:/C:/Users/Zver/.m2/repository/org/liquibase/liquibase-core/3.6.2/liquibase-core-3.6.2.jar
+
+
+Action:
+
+Correct the classpath of your application so that it contains a single, compatible version of liquibase.integration.spring.SpringLiquibase
+

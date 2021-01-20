@@ -36,9 +36,14 @@ public class DailyDomainsService {
      */
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
-        int cp;
-        while ((cp = rd.read()) != -1) {
-            sb.append((char) cp);
+        try {
+            int cp;
+            while ((cp = rd.read()) != -1) {
+                sb.append((char) cp);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            LOGGER.error("readAll {0}", e);
         }
         return sb.toString();
     }
@@ -49,15 +54,18 @@ public class DailyDomainsService {
      * @return JSONArray
      */
     public static JSONArray readJsonFromUrl(String url) throws IOException, JSONException {
+        JSONArray json = new JSONArray();
         InputStream is = new URL(url).openStream();
         try {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             String jsonText = readAll(rd);
-            JSONArray json = new JSONArray(jsonText);
-            return json;
+            json = new JSONArray(jsonText);
+        } catch (Exception e) {
+            LOGGER.error("readJsonFromUrl : {0}", e);
         } finally {
             is.close();
         }
+        return json;
     }
 
     /**
@@ -65,25 +73,30 @@ public class DailyDomainsService {
      *
      * @return массив с данными из JSON
      */
-    public static List<Daily_domains> jsonArrayToJsonObject(String url) throws IOException {
+    public static List<Daily_domains> jsonArrayToJsonObject(String url) {
         List<Daily_domains> domArr = new ArrayList<>();
-        JSONArray array = readJsonFromUrl(url);
-        for (int n = 0; n < array.length(); n++) {
-            Daily_domains daily_domains = new Daily_domains();
-            JSONObject object = array.getJSONObject(n);
+        try {
+            JSONArray array = readJsonFromUrl(url);
+            for (int n = 0; n < array.length(); n++) {
+                Daily_domains daily_domains = new Daily_domains();
+                JSONObject object = array.getJSONObject(n);
 
-            daily_domains.setDomainname(object.getString("domainname"));
-            daily_domains.setHotness(object.getInt("hotness"));
-            daily_domains.setPrice(object.getInt("price"));
-            daily_domains.setYandex_tic(object.optString("yandex_tic"));
-            daily_domains.setLinks(object.getInt("links"));
-            daily_domains.setRegistrar(object.getString("registrar"));
-            daily_domains.setOld(object.getInt("old"));
-            daily_domains.setDelete_date(object.getString("delete_date"));
-            daily_domains.setRkn(object.getBoolean("rkn"));
-            daily_domains.setJudicial(object.getBoolean("judicial"));
-            daily_domains.setBlock(object.getBoolean("block"));
-            domArr.add(daily_domains);
+                daily_domains.setDomainname(object.getString("domainname"));
+                daily_domains.setHotness(object.getInt("hotness"));
+                daily_domains.setPrice(object.getInt("price"));
+                daily_domains.setYandex_tic(object.optString("yandex_tic"));
+                daily_domains.setLinks(object.getInt("links"));
+                daily_domains.setRegistrar(object.getString("registrar"));
+                daily_domains.setOld(object.getInt("old"));
+                daily_domains.setDelete_date(object.getString("delete_date"));
+                daily_domains.setRkn(object.getBoolean("rkn"));
+                daily_domains.setJudicial(object.getBoolean("judicial"));
+                daily_domains.setBlock(object.getBoolean("block"));
+                domArr.add(daily_domains);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            LOGGER.error("jsonArrayToJsonObject {0}", e);
         }
         return domArr;
     }
@@ -100,7 +113,7 @@ public class DailyDomainsService {
             arr = (ArrayList<Daily_domains>) jsonArrayToJsonObject(url);
             domainsRepository.saveAll(arr);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             LOGGER.error("error saveUserToBase: {0} ", e);
         }
 //        System.out.println("финиш");
@@ -112,15 +125,17 @@ public class DailyDomainsService {
      *
      * @return количество domains(размер массива domains)
      */
-    //TODO как правильно сделать проверку
+
     public int getCountDomainsInDB() {
-        saveToBaseDailyDomains();
         int allDomainsSize = 0;
-        if (domainsRepository.findAll() != null) {
+        try {
+            saveToBaseDailyDomains();
             List<Daily_domains> allDomains = domainsRepository.findAll();
             allDomainsSize = allDomains.size();
-        } else {
-            LOGGER.error("error getCountDomainsInDB");
+        } catch (Exception e) {
+            LOGGER.error("error getCountDomainsInDB: {0} ", e);
+            e.printStackTrace();
+
         }
         return allDomainsSize;
     }
@@ -130,7 +145,7 @@ public class DailyDomainsService {
      *
      * @return сообщение
      */
-    //TODO что можно логировать в этом методе
+
     public String formMessageForUser() {
 
         System.out.println("формируем сообщение");
@@ -143,13 +158,18 @@ public class DailyDomainsService {
      *
      * @return отформатированная текущая дата
      */
-    //TODO что можно логировать в этом методе
+
     public String getCurrentDate() {
+        String date = "";
+        try {
+            LocalDate localDate = LocalDate.now();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            date = localDate.format(dtf);
 
-        LocalDate localDate = LocalDate.now();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return localDate.format(dtf);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("getCurrentDate {0}", e);
+        }
+        return date;
     }
-
-
 }

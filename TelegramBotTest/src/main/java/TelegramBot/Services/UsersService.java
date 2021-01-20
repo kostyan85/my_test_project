@@ -34,7 +34,7 @@ public class UsersService {
 //        User sender = update.getMessage().getFrom();
 //        return sender.getFirstName();
 //    }
-//TODO как правильно проинициализировать?
+
     public ArrayList<Users> getAllUserTelegramId() {
         ArrayList<Users> arrUsers = new  ArrayList();
         if (!userRepository.findAllByUserTelegramId().isEmpty()) {
@@ -96,7 +96,7 @@ public class UsersService {
     /**
      * сохранение пользоателя в БД
      */
-    //TODO почему logger требует еще аргументы?
+
     public void saveUserToBase(User user, Update update) {
         try {
             userRepository.save(userToEntity(user, update));
