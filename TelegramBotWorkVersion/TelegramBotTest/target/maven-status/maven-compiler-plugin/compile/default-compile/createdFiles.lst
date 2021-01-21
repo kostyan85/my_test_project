@@ -1,0 +1,13 @@
+TelegramBot\Services\MessagesService.class
+TelegramBot\Entity\Users.class
+TelegramBot\Services\UsersService.class
+TelegramBot\Entity\Messages.class
+TelegramBot\TelegramBotTestApplication.class
+TelegramBot\Entity\Daily_domains.class
+TelegramBot\Bot.class
+TelegramBot\Repository\MessagesRepository.class
+TelegramBot\Services\DailyDomainsService.class
+TelegramBot\Services\GeneralService.class
+TelegramBot\Repository\DailyDomainsRepository.class
+TelegramBot\Repository\UsersRepository.class
+TelegramBot\Services\TaskTimerService.class
