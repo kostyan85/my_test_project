@@ -17,7 +17,7 @@
     <properties>
         <java.version>11</java.version>
         <telegrambots-spring.version>0.22</telegrambots-spring.version>
-        <liquibase.version>3.6.2</liquibase.version>
+<!--        <liquibase.version>3.6.2</liquibase.version>-->
                 <profile.propertyFile>src/main/resources/liquibase/liquibase.properties</profile.propertyFile>
                 <profile.changeLogFile>src/main/resources/liquibase/databaseChangeLog.xml</profile.changeLogFile>
                 <profile.dataDir>src/main/resources/liquibase/data</profile.dataDir>
@@ -29,7 +29,7 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>${liquibase.version}</version>
+<!--            <version>${liquibase.version}</version>-->
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.telegram/telegrambots-spring-boot-starter -->
@@ -103,7 +103,7 @@
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>${liquibase.version}</version>
+<!--                <version>${liquibase.version}</version>-->
                 <configuration>
 
                     <propertyFile>${profile.propertyFile}</propertyFile>

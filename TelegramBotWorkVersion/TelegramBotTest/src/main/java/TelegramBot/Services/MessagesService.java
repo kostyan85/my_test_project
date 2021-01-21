@@ -19,14 +19,14 @@ import java.util.Optional;
 @Service
 public class MessagesService {
     @Autowired
-    UsersRepository usersRepository;
+    private UsersRepository usersRepository;
     @Autowired
     private MessagesRepository messagesRepository;
     @Autowired
     private UsersService usersService;
 
     @Autowired
-    Bot bot;
+    private Bot bot;
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MessagesService.class);

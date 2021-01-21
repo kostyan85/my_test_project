@@ -1,0 +1,13 @@
+21-01-2021 19:54:37.562 [restartedMain] INFO  l.lockservice.StandardLockService.info - Successfully acquired change log lock
+21-01-2021 19:54:37.920 [restartedMain] INFO  l.c.StandardChangeLogHistoryService.info - Creating database history table with name: public.databasechangelog
+21-01-2021 19:54:37.994 [restartedMain] INFO  l.c.StandardChangeLogHistoryService.info - Reading from public.databasechangelog
+21-01-2021 19:54:38.526 [restartedMain] INFO  liquibase.changelog.ChangeSet.info - Custom SQL executed
+21-01-2021 19:54:38.528 [restartedMain] INFO  liquibase.changelog.ChangeSet.info - ChangeSet classpath:/liquibase/data/db.changes-1.0.xml::1-domain-some-domain::author ran successfully in 522ms
+21-01-2021 19:54:38.562 [restartedMain] INFO  l.lockservice.StandardLockService.info - Successfully released change log lock
+21-01-2021 19:54:54.864 [KostyanFirstTele_bot Telegram Executor] ERROR TelegramBot.Bot.onUpdateReceived - трям трям
+21-01-2021 19:55:25.322 [restartedMain] INFO  l.lockservice.StandardLockService.info - Successfully acquired change log lock
+21-01-2021 19:55:25.771 [restartedMain] INFO  l.c.StandardChangeLogHistoryService.info - Reading from public.databasechangelog
+21-01-2021 19:55:25.787 [restartedMain] INFO  l.lockservice.StandardLockService.info - Successfully released change log lock
+21-01-2021 19:55:31.442 [KostyanFirstTele_bot Telegram Executor] ERROR TelegramBot.Bot.onUpdateReceived - трям трям
+21-01-2021 20:05:59.404 [KostyanFirstTele_bot Telegram Executor] ERROR TelegramBot.Bot.onUpdateReceived - трям трям
+21-01-2021 20:35:16.197 [KostyanFirstTele_bot Telegram Executor] ERROR TelegramBot.Bot.onUpdateReceived - трям трям

@@ -34,7 +34,7 @@ public class DailyDomainsService {
     /**
      * преобразуем JSON в String
      */
-    private static String readAll(Reader rd) throws IOException {
+    private static String readAll(Reader rd)  {
         StringBuilder sb = new StringBuilder();
         try {
             int cp;
@@ -109,14 +109,12 @@ public class DailyDomainsService {
         domainsRepository.deleteAll();
         ArrayList<Daily_domains> arr = null;
         try {
-//            System.out.println("старт");;
             arr = (ArrayList<Daily_domains>) jsonArrayToJsonObject(url);
             domainsRepository.saveAll(arr);
 
         } catch (Exception e) {
             LOGGER.error("error saveUserToBase: {0} ", e);
         }
-//        System.out.println("финиш");
 
     }
 

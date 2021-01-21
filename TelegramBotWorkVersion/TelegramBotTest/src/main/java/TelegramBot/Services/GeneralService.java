@@ -10,13 +10,13 @@ import TelegramBot.Bot;
 public class GeneralService {
 
     @Autowired
-    UsersService usersService;
+   private UsersService usersService;
 
     @Autowired
-    MessagesService messagesService;
+    private MessagesService messagesService;
 
     @Autowired
-    Bot bot;
+    private Bot bot;
 
     /**
      * сохраняем или обновляем пользователя и сохраняем сообщения в БД

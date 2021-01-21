@@ -12,7 +12,6 @@ public class TelegramBotTestApplication {
 
     public static void main(String[] args) throws TelegramApiRequestException {
         ApiContextInitializer.init();
-//        SpringApplication.run(TelegramBotTestApplication.class, args);
         SpringApplication.run(TelegramBotTestApplication.class,args);
 
     }

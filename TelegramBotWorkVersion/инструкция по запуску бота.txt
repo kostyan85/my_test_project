@@ -1,0 +1,30 @@
+в консоли перейти в папаку TelegramBotTest/target
+ввести команду java -jar TelegramBotTest-0.0.1-SNAPSHOT.jar
+
+
+настройки liquibase находятся в папаке liquibase (TelegramBotTest/src/main/resources/liquibase)
+файлы для работы с таблицами находятся в папке data (TelegramBotTest/src/main/resources/liquibase/data)
+
+поверка статуса liquibase mvn liquibase:status -Denv=dev (вместо dev можно использовать ваше название профиля из конфига в профилях мавен)
+внесение изменений в БД:
+
+1 создаем в папке data файл с скриптом sql;
+
+2 добавляем его в файл databaseChangeLog.xml (TelegramBotTest/src/main/resources/liquibase)
+	в таком формате ( пример  <include file="data/db.changes-2.0.xml" relativeToChangelogFile = "true"/>)
+	//не забываем про rollback//
+
+3 в консоли вводим команду mvn liquibase:update -Denv=dev
+
+4 при какой либо ошибке используем rollback (mvn liquibase:rollback -Dliquibase.rollbackCount=1) //rollbackCount количество шагов отката
+	есть возможность rollback на определенную дату (mvn liquibase:rollback -Denv=dev "-Dliquibase.rollbackDate=2020-05-15")
+
+
+настройка расписания рассылки находится в файле application.properties (#Schedule settings).
+по умолчанию настроены на 12 часов каждого дня
+
+настройки имени и токена бота находятся в resources/application.yaml
+
+настройка url по которому берутся daily_domains находится в application.properties (dailyDomainsUrl)
+
+log файлы находятся в папке logs в корне проекта

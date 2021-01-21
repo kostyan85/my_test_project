@@ -24,16 +24,6 @@ public class UsersService {
     private UsersRepository userRepository;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UsersService.class);
-//    /**
-//     * получение имени пользователя
-//     *
-//     * @param update
-//     * @return имя пользователя
-//     */
-//    public String getUserName(Update update) {
-//        User sender = update.getMessage().getFrom();
-//        return sender.getFirstName();
-//    }
 
     public ArrayList<Users> getAllUserTelegramId() {
         ArrayList<Users> arrUsers = new  ArrayList();
@@ -118,10 +108,6 @@ public class UsersService {
         } else {
             LOGGER.error("error updateUserToBase: пользователь не обновлен");
         }
-    }
-
-    public static void main(String[] args) {
-        LOGGER.error("тук тук");
     }
 
 }

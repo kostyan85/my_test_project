@@ -10,18 +10,11 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 @Service
 public class TaskTimerService {
     @Autowired
-    Bot bot;
+    private Bot bot;
     @Autowired
-    DailyDomainsService dailyDomainsService;
-//
-//    /**
-//     * создаем таймер для ежедневной рассылки
-//     * @Scheduled(cron = "0 0 12 * * *") настройка на 12 часов каждого дня
-//     */
-//
-////    @Scheduled(cron = "0 0 12 * * *")
-////    @Scheduled(cron = "0 0/2 * * * *")
-//    //TODO почему в настройках ругается?
+    private DailyDomainsService dailyDomainsService;
+
+
     @Scheduled(cron = "${settings.cron}")
     public void timerTask() {
         try {
