@@ -1,9 +1,0 @@
-GET http://localhost:8080/getGif?currency=RUB
-
-
-
-###
-GET https://media4.giphy.com/media/l378dVx0WHX0U83io/giphy.gif?cid=dc453f0aae11cef0e16dac1f4b866d7b0104c3815d080bc7&rid=giphy.gif
-
-
-###
