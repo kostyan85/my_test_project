@@ -1,0 +1,17 @@
+1.открыть терминал и  перейти в корень проекта
+2.запустить команду "gradle bootjar"
+3.перейти build/libs
+4.запускаем используя команду "java -jar testAlfaBank-0.0.1-SNAPSHOT.jar"
+	приложение запускается с параметрами по умолчанию :
+
+путь к gif с тегом "rich"- pathToRich=https://api.giphy.com/v1/gifs/random?api_key=cUYFpUjEG2GR7jDNA8DR2L4kMmu7QxCM&tags=rich
+путь к gif с тегом "broke"- pathToBroke=https://api.giphy.com/v1/gifs/random?api_key=cUYFpUjEG2GR7jDNA8DR2L4kMmu7QxCM&tags=broke
+путь к курсу валют текущего дня urlForCurrentCourse=https://openexchangerates.org/api/latest.json?app_id=05ca9bda2b824e9ea19999056bc95d40
+путь к курсу валют вчерашнего дня urlForYesterdayCourse=https://openexchangerates.org/api/historical/yesterdayDate.json?app_id=05ca9bda2b824e9ea19999056bc95d40
+базовая валюта baseCurrency=&base=USD
+
+5.пример команды с переопределенным параметром baseCurrency "java -jar testAlfaBank-0.0.1-SNAPSHOT.jar --baseCurrency=&base=AFN"
+6.для получения gif переходим в браузере по url 
+"http://localhost:8080/getGif?currency=RUB" где параметр currency - валюта которую сравниваем с baseCurrency
+*********************************************************************************
+baseCurrency по умолчанию USD т.к в бесплатной версии API openexchangerates недоступна опция смены базовой валюты
