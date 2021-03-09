@@ -90,7 +90,7 @@ public class Parser {
         return list;
     }
     /**
-     * преобразовываем объекты Results в .csv формат и запысываем в файл
+     * преобразовываем объекты Products в .csv формат и запысываем в файл
      * */
 
     void createCsvFile() throws IOException {
@@ -99,31 +99,31 @@ public class Parser {
         String fileName = "data.csv";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            listToWrite.forEach(results -> {
+            listToWrite.forEach(products -> {
                 try {
-                    writer.append(results.getProductId()).append(CSV_SEPARATOR)
-                            .append(results.getSellerId()).append(CSV_SEPARATOR)
-                            .append(results.getOriMinPrice()).append(CSV_SEPARATOR)
-                            .append(results.getOriMaxPrice()).append(CSV_SEPARATOR)
-                            .append(results.getPromotionId()).append(CSV_SEPARATOR)
-                            .append(results.getStartTime()).append(CSV_SEPARATOR)
-                            .append(results.getEndTime()).append(CSV_SEPARATOR)
-                            .append(results.getPhase()).append(CSV_SEPARATOR)
-                            .append(results.getProductTitle()).append(CSV_SEPARATOR)
-                            .append(results.getMinPrice()).append(CSV_SEPARATOR)
-                            .append(results.getMaxPrice()).append(CSV_SEPARATOR)
-                            .append(results.getDiscount()).append(CSV_SEPARATOR)
-                            .append(results.getTotalStock()).append(CSV_SEPARATOR)
-                            .append(results.getStock()).append(CSV_SEPARATOR)
-                            .append(results.getOrders()).append(CSV_SEPARATOR)
-                            .append(results.isSoldout()).append(CSV_SEPARATOR)
-                            .append(results.getProductImage()).append(CSV_SEPARATOR)
-                            .append(results.getProductDetailUrl()).append(CSV_SEPARATOR)
-                            .append(results.getTotalTranpro3()).append(CSV_SEPARATOR)
-                            .append(results.getProductPositiveRate()).append(CSV_SEPARATOR)
-                            .append(results.getProductAverageStar()).append(CSV_SEPARATOR)
-                            .append(results.getItemEvalTotalNum()).append(CSV_SEPARATOR)
-                            .append(results.getIcon()).append(CSV_SEPARATOR).append(System.lineSeparator());
+                    writer.append(products.getProductId()).append(CSV_SEPARATOR)
+                            .append(products.getSellerId()).append(CSV_SEPARATOR)
+                            .append(products.getOriMinPrice()).append(CSV_SEPARATOR)
+                            .append(products.getOriMaxPrice()).append(CSV_SEPARATOR)
+                            .append(products.getPromotionId()).append(CSV_SEPARATOR)
+                            .append(products.getStartTime()).append(CSV_SEPARATOR)
+                            .append(products.getEndTime()).append(CSV_SEPARATOR)
+                            .append(products.getPhase()).append(CSV_SEPARATOR)
+                            .append(products.getProductTitle()).append(CSV_SEPARATOR)
+                            .append(products.getMinPrice()).append(CSV_SEPARATOR)
+                            .append(products.getMaxPrice()).append(CSV_SEPARATOR)
+                            .append(products.getDiscount()).append(CSV_SEPARATOR)
+                            .append(products.getTotalStock()).append(CSV_SEPARATOR)
+                            .append(products.getStock()).append(CSV_SEPARATOR)
+                            .append(products.getOrders()).append(CSV_SEPARATOR)
+                            .append(products.isSoldout()).append(CSV_SEPARATOR)
+                            .append(products.getProductImage()).append(CSV_SEPARATOR)
+                            .append(products.getProductDetailUrl()).append(CSV_SEPARATOR)
+                            .append(products.getTotalTranpro3()).append(CSV_SEPARATOR)
+                            .append(products.getProductPositiveRate()).append(CSV_SEPARATOR)
+                            .append(products.getProductAverageStar()).append(CSV_SEPARATOR)
+                            .append(products.getItemEvalTotalNum()).append(CSV_SEPARATOR)
+                            .append(products.getIcon()).append(CSV_SEPARATOR).append(System.lineSeparator());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
