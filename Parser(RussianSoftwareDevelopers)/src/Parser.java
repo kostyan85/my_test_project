@@ -84,7 +84,7 @@ public class Parser {
                     array.getJSONObject(i).getString("productPositiveRate"),
                     array.getJSONObject(i).getString("productAverageStar"),
                     array.getJSONObject(i).getInt("itemEvalTotalNum"),
-                    array.getJSONObject(i).getString("icon"));
+                    array.getJSONObject(i).isNull("icon") ? "icon url is not present" :array.getJSONObject(i).getString("icon"));
             list.add(products);
         }
         return list;
