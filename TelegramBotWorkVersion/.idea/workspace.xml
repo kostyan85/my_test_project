@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4109deb-8286-4c99-a8a2-387c12e344e2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../testAlfaBank/.gradle/6.7.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../testAlfaBank/.gradle/6.7.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../testAlfaBank/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../testAlfaBank/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Parser(RussianSoftwareDevelopers)/out/production/Parser(RussianSoftwareDevelopers)/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Parser(RussianSoftwareDevelopers)/out/production/Parser(RussianSoftwareDevelopers)/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +35,10 @@
       <option name="presentableId" value="Default" />
       <updated>1612973104467</updated>
       <workItem from="1612973105735" duration="44000" />
+      <workItem from="1618215397339" duration="1077000" />
+      <workItem from="1618217369425" duration="2299000" />
+      <workItem from="1618831121923" duration="133000" />
+      <workItem from="1622797063362" duration="7688000" />
     </task>
     <servers />
   </component>
@@ -51,5 +55,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
