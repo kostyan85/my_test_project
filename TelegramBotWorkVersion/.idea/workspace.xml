@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4109deb-8286-4c99-a8a2-387c12e344e2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Parser(RussianSoftwareDevelopers)/out/production/Parser(RussianSoftwareDevelopers)/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Parser(RussianSoftwareDevelopers)/out/production/Parser(RussianSoftwareDevelopers)/Parser.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,7 +23,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../RStyleSoftlabTest" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -39,6 +38,9 @@
       <workItem from="1618217369425" duration="2299000" />
       <workItem from="1618831121923" duration="133000" />
       <workItem from="1622797063362" duration="7688000" />
+      <workItem from="1625403975635" duration="195000" />
+      <workItem from="1625485411009" duration="1256000" />
+      <workItem from="1625490591591" duration="12000" />
     </task>
     <servers />
   </component>
